@@ -246,7 +246,7 @@ canvas {
 
 #joystick-area {
     position: absolute;
-    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(150px + env(safe-area-inset-bottom, 0px));
     left: 30px;
     width: 150px;
     height: 150px;
@@ -279,7 +279,7 @@ canvas {
 
 #jump-btn {
     position: absolute;
-    bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(170px + env(safe-area-inset-bottom, 0px));
     right: 40px;
     width: 80px;
     height: 80px;
