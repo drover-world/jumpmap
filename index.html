@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Jump Map - 3D Obby</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- HUD -->
+        <div id="hud">
+            <div id="timer">00:00.00</div>
+            <div id="player-info"></div>
+            <div id="map-info"></div>
+            <div id="checkpoint-info">CP: 0/4</div>
+            <div id="death-count">Deaths: 0</div>
+        </div>
+
+        <!-- Crosshair -->
+        <div id="crosshair"></div>
+
+        <!-- Checkpoint notification -->
+        <div id="checkpoint-notification"></div>
+
+        <!-- NPC notification -->
+        <div id="npc-notification"></div>
+
+        <!-- Rescue notification -->
+        <div id="rescue-notification"></div>
+
+        <!-- Boss warning -->
+        <div id="boss-warning"></div>
+
+        <!-- Story dialog -->
+        <div id="story-dialog">
+            <div id="story-text"></div>
+        </div>
+
+        <!-- Center message -->
+        <div id="center-message">
+            <div class="title"></div>
+            <div class="subtitle"></div>
+        </div>
+
+        <!-- Touch controls -->
+        <div id="touch-controls">
+            <div id="joystick-area">
+                <div id="joystick-base">
+                    <div id="joystick-thumb"></div>
+                </div>
+            </div>
+            <div id="jump-btn">점프</div>
+            <div id="camera-touch-area"></div>
+        </div>
+
+        <!-- Start screen -->
+        <div id="start-screen">
+            <h1>JUMP MAP</h1>
+            <h2>3D Obby Challenge</h2>
+
+            <!-- Step 1: Character Selection -->
+            <div id="step-1" class="selection-step active">
+                <div class="step-title">캐릭터를 선택하세요</div>
+                <div class="card-grid">
+                    <div class="select-card char-card" data-char="woozu">
+                        <div class="card-color-preview" style="background: url('img/woozu.jpg') center/cover; border-radius: 50%;"></div>
+                        <div class="card-name">우주</div>
+                        <div class="card-desc">천재 수학자</div>
+                    </div>
+                    <div class="select-card char-card" data-char="taeju">
+                        <div class="card-color-preview" style="background: url('img/taeju.jpg') center/cover; border-radius: 50%;"></div>
+                        <div class="card-name">태주</div>
+                        <div class="card-desc">천재 과학자</div>
+                    </div>
+                    <div class="select-card char-card" data-char="seohyun">
+                        <div class="card-color-preview" style="background: #ff69b4;"></div>
+                        <div class="card-name">서현</div>
+                        <div class="card-desc">수영 챔피언</div>
+                    </div>
+                    <div class="select-card char-card" data-char="seojun">
+                        <div class="card-color-preview" style="background: #1e88e5;"></div>
+                        <div class="card-name">서준</div>
+                        <div class="card-desc">아이스하키 선수</div>
+                    </div>
+                </div>
+                <button id="next-to-map" class="step-btn" disabled>다음 →</button>
+            </div>
+
+            <!-- Step 2: Map Selection -->
+            <div id="step-2" class="selection-step">
+                <div class="step-title">맵을 선택하세요</div>
+                <div class="card-grid">
+                    <div class="select-card map-card" data-map="samsung">
+                        <div class="card-color-preview" style="background: linear-gradient(135deg, #607d8b, #3498db);"></div>
+                        <div class="card-name">삼성동</div>
+                        <div class="card-desc">큰이모에게서<br>이안+이서 구출!</div>
+                    </div>
+                    <div class="select-card map-card" data-map="yeoksam">
+                        <div class="card-color-preview" style="background: linear-gradient(135deg, #27ae60, #2ecc71);"></div>
+                        <div class="card-name">역삼동</div>
+                        <div class="card-desc">명태이모에게서<br>김재우 구출!</div>
+                    </div>
+                    <div class="select-card map-card" data-map="daechi">
+                        <div class="card-color-preview" style="background: linear-gradient(135deg, #9b59b6, #f1c40f);"></div>
+                        <div class="card-name">대치동</div>
+                        <div class="card-desc">하하에게서<br>이안+이서 구출!</div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:15px;">
+                    <button id="back-to-char" class="step-btn" style="background:#777;">← 뒤로</button>
+                    <button id="next-to-controls" class="step-btn" disabled>다음 →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Controls & Start -->
+            <div id="step-3" class="selection-step">
+                <div class="step-title">조작법</div>
+                <div id="controls-guide">
+                    <div class="control-row">
+                        <span class="key">↑ ↓ ← →</span>
+                        <span>이동</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="key">스페이스바</span>
+                        <span>점프</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="key">마우스</span>
+                        <span>시점 회전 (클릭으로 잠금)</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="key">R</span>
+                        <span>리스타트</span>
+                    </div>
+                    <div class="control-row">
+                        <span class="key">ESC</span>
+                        <span>마우스 잠금 해제</span>
+                    </div>
+                    <div class="control-row touch-hint" style="color: #4ecdc4; margin-top: 10px;">
+                        <span class="key" style="color: #4ecdc4; border-color: rgba(78,205,196,0.4);">터치</span>
+                        <span>조이스틱 + 점프 버튼 (아이패드)</span>
+                    </div>
+                    <div class="control-row" style="color: #ff6b6b; margin-top: 10px;">
+                        <span class="key" style="color: #ff6b6b; border-color: rgba(255,107,107,0.4);">주의!</span>
+                        <span>몹/보스에 닿으면 사망!</span>
+                    </div>
+                </div>
+                <div style="display:flex; gap:15px;">
+                    <button id="back-to-map" class="step-btn" style="background:#777;">← 뒤로</button>
+                    <button id="start-btn">게임 시작!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clear screen -->
+        <div id="clear-screen">
+            <h1>CLEAR!</h1>
+            <div class="stats">클리어 시간: <span id="clear-time">00:00.00</span></div>
+            <div class="stats">사망 횟수: <span id="clear-deaths">0</span></div>
+            <div class="stats" id="clear-story-msg"></div>
+            <div class="stats" id="clear-rescue-count"></div>
+            <button id="restart-btn">다시 도전</button>
+        </div>
+    </div>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Game modules -->
+    <script src="js/player.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/world.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
