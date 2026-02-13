@@ -221,13 +221,14 @@ canvas {
 
 #story-text {
     color: #fff;
-    font-size: 32px;
+    font-size: 26px;
     font-weight: bold;
     text-align: center;
-    line-height: 1.6;
+    line-height: 1.7;
     text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
     white-space: pre-line;
     padding: 30px;
+    max-width: 600px;
 }
 
 /* ============== TOUCH CONTROLS ============== */
@@ -334,7 +335,29 @@ canvas {
 #start-screen h2 {
     font-size: 18px;
     color: #aaa;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+}
+
+/* Family photo */
+#family-photo {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#family-photo img {
+    width: 200px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid rgba(78, 205, 196, 0.5);
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+}
+
+#family-caption {
+    color: #4ecdc4;
+    font-size: 13px;
+    margin-top: 6px;
+    font-weight: bold;
 }
 
 /* Selection steps */

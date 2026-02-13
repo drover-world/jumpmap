@@ -15,11 +15,15 @@ const MAP_DATA = {
         groundColor: 0x888888,
         theme: 'city',
         story: {
-            intro: '큰이모가 이안이와 이서를 잡아갔어!\n구출하러 가자!',
             bossKey: 'keunimo',
             mobKeys: ['haha', 'myeongtae'],
             rescueKeys: ['ian', 'iseo'],
-            clearMsg: '이안이와 이서를 구출했다!',
+            getIntro: (charData) => {
+                return `[${charData.school}] ${charData.name} 출동!\n\n큰이모가 삼성동에서\n이안이와 이서를 잡아갔다!\n\n${charData.intro}\n친척동생들을 구하러 가자!`;
+            },
+            getClearMsg: (charData) => {
+                return `${charData.name}(이)가 이안이와 이서를 구출했다!`;
+            },
         },
     },
     yeoksam: {
@@ -29,11 +33,15 @@ const MAP_DATA = {
         groundColor: 0x55aa55,
         theme: 'park',
         story: {
-            intro: '명태이모가 김재우를 잡아갔어!\n구출하러 가자!',
             bossKey: 'myeongtae',
             mobKeys: ['keunimo', 'haha'],
             rescueKeys: ['jaewoo'],
-            clearMsg: '김재우를 구출했다!',
+            getIntro: (charData) => {
+                return `[${charData.school}] ${charData.name} 출동!\n\n명태이모가 역삼동 공원에서\n김재우를 잡아갔다!\n\n${charData.intro}\n재우를 구하러 가자!`;
+            },
+            getClearMsg: (charData) => {
+                return `${charData.name}(이)가 김재우를 구출했다!`;
+            },
         },
     },
     daechi: {
@@ -43,11 +51,15 @@ const MAP_DATA = {
         groundColor: 0x9988aa,
         theme: 'academy',
         story: {
-            intro: '하하가 이안이와 이서를 잡아갔어!\n구출하러 가자!',
             bossKey: 'haha',
             mobKeys: ['keunimo', 'myeongtae'],
             rescueKeys: ['ian', 'iseo'],
-            clearMsg: '이안이와 이서를 구출했다!',
+            getIntro: (charData) => {
+                return `[${charData.school}] ${charData.name} 출동!\n\n하하가 대치동 학원가에서\n이안이와 이서를 잡아갔다!\n\n${charData.intro}\n친척동생들을 구하러 가자!`;
+            },
+            getClearMsg: (charData) => {
+                return `${charData.name}(이)가 이안이와 이서를 구출했다!`;
+            },
         },
     },
 };

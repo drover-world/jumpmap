@@ -9,6 +9,8 @@ const CHARACTER_DATA = {
         hairStyle: 'short',
         faceTexture: 'img/woozu.jpg',
         desc: '천재 수학자',
+        school: '언북초 3학년',
+        intro: '언북초 3학년 천재 수학자 우주!',
     },
     taeju: {
         name: '태주',
@@ -20,6 +22,8 @@ const CHARACTER_DATA = {
         hairStyle: 'long',
         faceTexture: 'img/taeju.jpg',
         desc: '천재 과학자',
+        school: '언북초 1학년',
+        intro: '언북초 1학년 천재 과학자 태주!',
     },
     seohyun: {
         name: '서현',
@@ -29,8 +33,10 @@ const CHARACTER_DATA = {
         skinColor: 0xf5cba7,
         legColor: 0xf5cba7,        // 맨다리(피부색)
         hairStyle: 'short',
-        faceTexture: null,
+        faceTexture: 'img/seohyun.jpg',
         desc: '수영 챔피언',
+        school: '도곡초 3학년',
+        intro: '도곡초 3학년 수영 챔피언 서현이!',
     },
     seojun: {
         name: '서준',
@@ -40,8 +46,10 @@ const CHARACTER_DATA = {
         skinColor: 0xf5cba7,
         legColor: 0x1565c0,        // 파란 바지
         hairStyle: 'short',
-        faceTexture: null,
+        faceTexture: 'img/seojun.jpg',
         desc: '아이스하키 선수',
+        school: '도곡초 5학년',
+        intro: '도곡초 5학년 아이스하키 에이스 서준이!',
     },
 };
 

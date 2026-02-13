@@ -270,16 +270,17 @@ class Game {
         // Setup touch controls
         this._setupTouchControls();
 
-        // Show story intro
+        // Show story intro (character-specific)
         const story = this.world.getStory();
-        if (story && story.intro) {
-            this.ui.showStoryIntro(story.intro, 3500);
+        const charData = CHARACTER_DATA[this.selectedCharacter];
+        if (story && story.getIntro) {
+            this.ui.showStoryIntro(story.getIntro(charData), 5000);
         }
 
         // Start timer after intro
         setTimeout(() => {
             this.ui.startTimer();
-        }, 3500);
+        }, 5000);
 
         this.isPlaying = true;
         this.isCleared = false;
@@ -384,10 +385,12 @@ class Game {
             if (this.world.checkGoal(this.player.getPosition())) {
                 this.isCleared = true;
                 const story = this.world.getStory();
+                const cd = CHARACTER_DATA[this.selectedCharacter];
+                const clearMsg = (story && story.getClearMsg) ? story.getClearMsg(cd) : '';
                 this.ui.showClearScreen(
                     this.ui.elapsedTime,
                     this.player.deathCount,
-                    story ? story.clearMsg : '',
+                    clearMsg,
                     this.world.rescuedCount
                 );
                 document.exitPointerLock();
