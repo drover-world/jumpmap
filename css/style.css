@@ -9,6 +9,7 @@ body {
     background: #1a1a2e;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     touch-action: none;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 #game-container {
@@ -245,7 +246,7 @@ canvas {
 
 #joystick-area {
     position: absolute;
-    bottom: 30px;
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px));
     left: 30px;
     width: 150px;
     height: 150px;
@@ -278,7 +279,7 @@ canvas {
 
 #jump-btn {
     position: absolute;
-    bottom: 50px;
+    bottom: calc(100px + env(safe-area-inset-bottom, 0px));
     right: 40px;
     width: 80px;
     height: 80px;
