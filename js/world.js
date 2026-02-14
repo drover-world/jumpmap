@@ -14,10 +14,12 @@ const MAP_DATA = {
         fogColor: 0x87ceeb,
         groundColor: 0x888888,
         theme: 'city',
+        allowedChars: null, // 아무나
         story: {
             bossKey: 'keunimo',
             mobKeys: ['haha', 'myeongtae'],
             rescueKeys: ['ian', 'iseo'],
+            ending: 'fart', // 큰이모 방구
             getIntro: (charData) => {
                 return `[${charData.school}] ${charData.name} 출동!\n\n큰이모가 삼성동에서\n이안이와 이서를 잡아갔다!\n\n${charData.intro}\n친척동생들을 구하러 가자!`;
             },
@@ -32,10 +34,12 @@ const MAP_DATA = {
         fogColor: 0xa8d8a8,
         groundColor: 0x55aa55,
         theme: 'park',
+        allowedChars: ['seohyun', 'seojun'], // 서현, 서준만
         story: {
             bossKey: 'myeongtae',
             mobKeys: ['keunimo', 'haha'],
             rescueKeys: ['jaewoo'],
+            ending: 'dance', // 명태+재우 춤
             getIntro: (charData) => {
                 return `[${charData.school}] ${charData.name} 출동!\n\n명태이모가 역삼동 공원에서\n김재우를 잡아갔다!\n\n${charData.intro}\n재우를 구하러 가자!`;
             },
@@ -50,10 +54,12 @@ const MAP_DATA = {
         fogColor: 0xdda0dd,
         groundColor: 0x9988aa,
         theme: 'academy',
+        allowedChars: null, // 아무나
         story: {
             bossKey: 'haha',
             mobKeys: ['keunimo', 'myeongtae'],
             rescueKeys: ['ian', 'iseo'],
+            ending: 'grandma', // 대치동할미 밥
             getIntro: (charData) => {
                 return `[${charData.school}] ${charData.name} 출동!\n\n하하가 대치동 학원가에서\n이안이와 이서를 잡아갔다!\n\n${charData.intro}\n친척동생들을 구하러 가자!`;
             },
@@ -254,7 +260,7 @@ class World {
             name: data.name,
             type: 'mob',
             pattern,
-            speed: speed * 0.9, // 난이도 10% 감소
+            speed: speed * 0.8, // 난이도 20% 감소
             range,
             originX: x, originY: y, originZ: z,
             leftArm, rightArm, leftLeg, rightLeg,
@@ -498,74 +504,74 @@ class World {
     // ========== 삼성동 (도시, 보통 난이도) ==========
     // Boss: 큰이모, Mobs: 하하+명태, Rescue: 이안+이서
     _buildSamsung() {
-        // Section 1: 시작
-        this._addPlatform(0, 0, 0, 6.6, 1, 6.6, 0x95a5a6);     // ×1.1
-        this._addPlatform(0, 0, -7, 4.4, 1, 4.4, 0x3498db);
-        this._addPlatform(0, 0.5, -13, 4.4, 1, 4.4, 0x3498db);
-        this._addPlatform(0, 1, -19, 3.3, 1, 3.3, 0x2980b9);
-        this._addPlatform(3, 1.5, -24, 3.3, 1, 3.3, 0x2980b9);
-        this._addPlatform(0, 2, -29, 3.3, 1, 3.3, 0x7f8c8d);
+        // Section 1: 시작 (플랫폼 ×1.1 추가)
+        this._addPlatform(0, 0, 0, 7.2, 1, 7.2, 0x95a5a6);
+        this._addPlatform(0, 0, -7, 4.8, 1, 4.8, 0x3498db);
+        this._addPlatform(0, 0.5, -13, 4.8, 1, 4.8, 0x3498db);
+        this._addPlatform(0, 1, -19, 3.6, 1, 3.6, 0x2980b9);
+        this._addPlatform(3, 1.5, -24, 3.6, 1, 3.6, 0x2980b9);
+        this._addPlatform(0, 2, -29, 3.6, 1, 3.6, 0x7f8c8d);
 
-        // Mob 1: 하하 (빠른 좌우)
-        this._createMobNPC('haha', 0, 3.2, -16, 'horizontal', 3.0, 3.5);
+        // Mob 1: 하하 (속도 감소)
+        this._createMobNPC('haha', 0, 3.2, -16, 'horizontal', 2.5, 3.5);
 
-        this._addPlatform(0, 2.5, -35, 5.5, 1, 5.5, 0x4ecdc4, true); // CP1
+        this._addPlatform(0, 2.5, -35, 6.0, 1, 6.0, 0x4ecdc4, true); // CP1
 
         // Section 2: 빌딩 사이
-        this._addPlatform(-4, 3, -41, 3.3, 1, 3.3, 0x7f8c8d);
-        this._addPlatform(0, 3.5, -47, 2.75, 1, 2.75, 0x95a5a6);
-        this._addPlatform(4, 4, -52, 2.75, 1, 2.75, 0xbdc3c7);
-        this._addPlatform(0, 4.5, -58, 2.75, 1, 2.75, 0x95a5a6);
+        this._addPlatform(-4, 3, -41, 3.6, 1, 3.6, 0x7f8c8d);
+        this._addPlatform(0, 3.5, -47, 3.0, 1, 3.0, 0x95a5a6);
+        this._addPlatform(4, 4, -52, 3.0, 1, 3.0, 0xbdc3c7);
+        this._addPlatform(0, 4.5, -58, 3.0, 1, 3.0, 0x95a5a6);
 
-        // Mob 2: 명태 (좌우)
-        this._createMobNPC('myeongtae', 0, 5.7, -55, 'horizontal', 1.8, 3);
+        // Mob 2: 명태 (속도 감소)
+        this._createMobNPC('myeongtae', 0, 5.7, -55, 'horizontal', 1.5, 3);
 
-        this._addPlatform(-3, 5, -63, 2.2, 1, 2.2, 0x3498db);
-        this._addPlatform(0, 5.5, -68, 3.3, 1, 3.3, 0x3498db);
-        this._addPlatform(3, 6, -72, 2.2, 1, 2.2, 0x2c3e50);
-        this._addPlatform(3, 7, -75, 2.2, 1, 2.2, 0x2c3e50);
-        this._addPlatform(3, 8, -78, 2.2, 1, 2.2, 0x2c3e50);
+        this._addPlatform(-3, 5, -63, 2.5, 1, 2.5, 0x3498db);
+        this._addPlatform(0, 5.5, -68, 3.6, 1, 3.6, 0x3498db);
+        this._addPlatform(3, 6, -72, 2.5, 1, 2.5, 0x2c3e50);
+        this._addPlatform(3, 7, -75, 2.5, 1, 2.5, 0x2c3e50);
+        this._addPlatform(3, 8, -78, 2.5, 1, 2.5, 0x2c3e50);
 
-        this._addPlatform(0, 8.5, -83, 5.5, 1, 5.5, 0x4ecdc4, true); // CP2
+        this._addPlatform(0, 8.5, -83, 6.0, 1, 6.0, 0x4ecdc4, true); // CP2
 
-        // Section 3: 움직이는 플랫폼
-        this._addMovingPlatform(0, 9, -90, 3.45, 0.5, 3.45, 0x3498db, 'x', 4, 1.3);
-        this._addPlatform(0, 9.5, -97, 2.75, 1, 2.75, 0x7f8c8d);
+        // Section 3: 움직이는 플랫폼 (속도 감소)
+        this._addMovingPlatform(0, 9, -90, 3.8, 0.5, 3.8, 0x3498db, 'x', 4, 1.1);
+        this._addPlatform(0, 9.5, -97, 3.0, 1, 3.0, 0x7f8c8d);
 
-        this._addMovingPlatform(0, 10, -104, 3.45, 0.5, 3.45, 0x3498db, 'x', 5, 1.7);
-        this._addPlatform(3, 10.5, -110, 2.75, 1, 2.75, 0x95a5a6);
-        this._addMovingPlatform(0, 11, -116, 3.45, 0.5, 3.45, 0xbdc3c7, 'y', 3, 1.0);
+        this._addMovingPlatform(0, 10, -104, 3.8, 0.5, 3.8, 0x3498db, 'x', 5, 1.4);
+        this._addPlatform(3, 10.5, -110, 3.0, 1, 3.0, 0x95a5a6);
+        this._addMovingPlatform(0, 11, -116, 3.8, 0.5, 3.8, 0xbdc3c7, 'y', 3, 0.85);
 
-        this._addPlatform(0, 13, -122, 5.5, 1, 5.5, 0x4ecdc4, true); // CP3
+        this._addPlatform(0, 13, -122, 6.0, 1, 6.0, 0x4ecdc4, true); // CP3
 
-        // Section 4: 좁은 길
-        this._addPlatform(0, 13.5, -127, 1.65, 1, 1.65, 0x2c3e50);
-        this._addPlatform(2, 14, -131, 1.65, 1, 1.65, 0x2c3e50);
-        this._addPlatform(-1, 14.5, -135, 1.65, 1, 1.65, 0x34495e);
-        this._addPlatform(1, 15.5, -139, 1.65, 1, 1.65, 0x34495e);
-        this._addPlatform(-2, 16.5, -143, 1.65, 1, 1.65, 0x7f8c8d);
-        this._addPlatform(0, 13, -148, 2.2, 1, 2.2, 0x95a5a6);
-        this._addPlatform(0, 15, -153, 2.2, 1, 2.2, 0x95a5a6);
-        this._addPlatform(3, 17, -157, 2.2, 1, 2.2, 0xbdc3c7);
+        // Section 4: 좁은 길 (넓어짐)
+        this._addPlatform(0, 13.5, -127, 2.0, 1, 2.0, 0x2c3e50);
+        this._addPlatform(2, 14, -131, 2.0, 1, 2.0, 0x2c3e50);
+        this._addPlatform(-1, 14.5, -135, 2.0, 1, 2.0, 0x34495e);
+        this._addPlatform(1, 15.5, -139, 2.0, 1, 2.0, 0x34495e);
+        this._addPlatform(-2, 16.5, -143, 2.0, 1, 2.0, 0x7f8c8d);
+        this._addPlatform(0, 13, -148, 2.5, 1, 2.5, 0x95a5a6);
+        this._addPlatform(0, 15, -153, 2.5, 1, 2.5, 0x95a5a6);
+        this._addPlatform(3, 17, -157, 2.5, 1, 2.5, 0xbdc3c7);
 
-        this._addPlatform(0, 17.5, -163, 5.5, 1, 5.5, 0x4ecdc4, true); // CP4
+        this._addPlatform(0, 17.5, -163, 6.0, 1, 6.0, 0x4ecdc4, true); // CP4
 
-        // Section 5: 보스 구간
-        this._addMovingPlatform(0, 18, -170, 2.3, 0.5, 2.3, 0x3498db, 'x', 3, 1.5);
-        this._addPlatform(0, 18.5, -176, 2.2, 1, 2.2, 0xbdc3c7);
+        // Section 5: 보스 구간 (속도 감소)
+        this._addMovingPlatform(0, 18, -170, 2.6, 0.5, 2.6, 0x3498db, 'x', 3, 1.2);
+        this._addPlatform(0, 18.5, -176, 2.5, 1, 2.5, 0xbdc3c7);
 
         // BOSS: 큰이모
         this._createBossNPC('keunimo', 0, 19.7, -182);
 
-        this._addMovingPlatform(3, 19, -182, 2.3, 0.5, 2.3, 0x3498db, 'z', 3, 1.3);
-        this._addPlatform(0, 19.5, -188, 2.2, 1, 2.2, 0xbdc3c7);
-        this._addPlatform(3, 20, -192, 2.2, 1, 2.2, 0x2c3e50);
-        this._addPlatform(-3, 21, -196, 2.2, 1, 2.2, 0x2c3e50);
-        this._addPlatform(3, 22, -200, 2.2, 1, 2.2, 0x2c3e50);
-        this._addPlatform(-3, 23, -204, 2.2, 1, 2.2, 0x2c3e50);
-        this._addPlatform(0, 24, -208, 2.2, 1, 2.2, 0x2c3e50);
-        this._addPlatform(0, 25, -214, 2.2, 1, 2.2, 0x95a5a6);
-        this._addPlatform(0, 25.5, -220, 6.6, 1, 6.6, 0xffd700, false, true); // GOAL
+        this._addMovingPlatform(3, 19, -182, 2.6, 0.5, 2.6, 0x3498db, 'z', 3, 1.1);
+        this._addPlatform(0, 19.5, -188, 2.5, 1, 2.5, 0xbdc3c7);
+        this._addPlatform(3, 20, -192, 2.5, 1, 2.5, 0x2c3e50);
+        this._addPlatform(-3, 21, -196, 2.5, 1, 2.5, 0x2c3e50);
+        this._addPlatform(3, 22, -200, 2.5, 1, 2.5, 0x2c3e50);
+        this._addPlatform(-3, 23, -204, 2.5, 1, 2.5, 0x2c3e50);
+        this._addPlatform(0, 24, -208, 2.5, 1, 2.5, 0x2c3e50);
+        this._addPlatform(0, 25, -214, 2.5, 1, 2.5, 0x95a5a6);
+        this._addPlatform(0, 25.5, -220, 7.2, 1, 7.2, 0xffd700, false, true); // GOAL
 
         // Rescue targets on goal platform
         this._createRescueNPC('ian', -1.5, 27.2, -220);
@@ -577,68 +583,68 @@ class World {
     // ========== 역삼동 (공원, 쉬운 난이도) ==========
     // Boss: 명태이모, Mobs: 큰이모+하하, Rescue: 김재우
     _buildYeoksam() {
-        // Section 1: 공원 입구
-        this._addPlatform(0, 0, 0, 6.6, 1, 6.6, 0x27ae60);
-        this._addPlatform(0, 0, -7, 4.4, 1, 4.4, 0x2ecc71);
-        this._addPlatform(3, 0.5, -13, 4.4, 1, 4.4, 0x2ecc71);
-        this._addPlatform(0, 1, -19, 4.4, 1, 4.4, 0x1abc9c);
-        this._addPlatform(-3, 1.5, -25, 3.3, 1, 3.3, 0x1abc9c);
-        this._addPlatform(0, 2, -30, 3.3, 1, 3.3, 0x16a085);
+        // Section 1: 공원 입구 (플랫폼 ×1.1)
+        this._addPlatform(0, 0, 0, 7.2, 1, 7.2, 0x27ae60);
+        this._addPlatform(0, 0, -7, 4.8, 1, 4.8, 0x2ecc71);
+        this._addPlatform(3, 0.5, -13, 4.8, 1, 4.8, 0x2ecc71);
+        this._addPlatform(0, 1, -19, 4.8, 1, 4.8, 0x1abc9c);
+        this._addPlatform(-3, 1.5, -25, 3.6, 1, 3.6, 0x1abc9c);
+        this._addPlatform(0, 2, -30, 3.6, 1, 3.6, 0x16a085);
 
-        // Mob 1: 큰이모 (전후)
-        this._createMobNPC('keunimo', 0, 3.2, -22, 'vertical', 1.35, 3);
+        // Mob 1: 큰이모 (속도 감소)
+        this._createMobNPC('keunimo', 0, 3.2, -22, 'vertical', 1.1, 3);
 
-        this._addPlatform(0, 2.5, -36, 5.5, 1, 5.5, 0x4ecdc4, true); // CP1
+        this._addPlatform(0, 2.5, -36, 6.0, 1, 6.0, 0x4ecdc4, true); // CP1
 
         // Section 2: 산책로
-        this._addPlatform(4, 3, -42, 3.3, 1, 3.3, 0x8b4513);
-        this._addPlatform(0, 3, -48, 3.3, 1, 3.3, 0x8b4513);
-        this._addPlatform(-4, 3.5, -54, 3.3, 1, 3.3, 0xa0522d);
-        this._addPlatform(0, 4, -60, 3.3, 1, 3.3, 0xa0522d);
-        this._addPlatform(3, 4.5, -65, 3.3, 1, 3.3, 0x27ae60);
+        this._addPlatform(4, 3, -42, 3.6, 1, 3.6, 0x8b4513);
+        this._addPlatform(0, 3, -48, 3.6, 1, 3.6, 0x8b4513);
+        this._addPlatform(-4, 3.5, -54, 3.6, 1, 3.6, 0xa0522d);
+        this._addPlatform(0, 4, -60, 3.6, 1, 3.6, 0xa0522d);
+        this._addPlatform(3, 4.5, -65, 3.6, 1, 3.6, 0x27ae60);
 
-        // Mob 2: 하하 (빠른 좌우)
-        this._createMobNPC('haha', 0, 5.2, -60, 'horizontal', 2.7, 3.5);
+        // Mob 2: 하하 (속도 감소)
+        this._createMobNPC('haha', 0, 5.2, -60, 'horizontal', 2.2, 3.5);
 
-        this._addPlatform(0, 5, -70, 3.3, 1, 3.3, 0x27ae60);
-        this._addPlatform(-2, 5.5, -75, 2.75, 1, 2.75, 0x2ecc71);
-        this._addPlatform(2, 6, -80, 2.75, 1, 2.75, 0x2ecc71);
+        this._addPlatform(0, 5, -70, 3.6, 1, 3.6, 0x27ae60);
+        this._addPlatform(-2, 5.5, -75, 3.0, 1, 3.0, 0x2ecc71);
+        this._addPlatform(2, 6, -80, 3.0, 1, 3.0, 0x2ecc71);
 
-        this._addPlatform(0, 6.5, -86, 5.5, 1, 5.5, 0x4ecdc4, true); // CP2
+        this._addPlatform(0, 6.5, -86, 6.0, 1, 6.0, 0x4ecdc4, true); // CP2
 
-        // Section 3: 연못 위
-        this._addMovingPlatform(0, 7, -93, 4.0, 0.5, 4.0, 0x1abc9c, 'x', 3, 1.0);
-        this._addPlatform(0, 7.5, -100, 3.3, 1, 3.3, 0x228b22);
+        // Section 3: 연못 위 (속도 감소)
+        this._addMovingPlatform(0, 7, -93, 4.4, 0.5, 4.4, 0x1abc9c, 'x', 3, 0.85);
+        this._addPlatform(0, 7.5, -100, 3.6, 1, 3.6, 0x228b22);
 
-        this._addMovingPlatform(0, 8, -107, 4.0, 0.5, 4.0, 0x1abc9c, 'z', 3, 0.85);
-        this._addPlatform(0, 8.5, -114, 3.3, 1, 3.3, 0x228b22);
-        this._addMovingPlatform(0, 9, -120, 4.0, 0.5, 4.0, 0x27ae60, 'y', 2, 0.85);
+        this._addMovingPlatform(0, 8, -107, 4.4, 0.5, 4.4, 0x1abc9c, 'z', 3, 0.7);
+        this._addPlatform(0, 8.5, -114, 3.6, 1, 3.6, 0x228b22);
+        this._addMovingPlatform(0, 9, -120, 4.4, 0.5, 4.4, 0x27ae60, 'y', 2, 0.7);
 
-        this._addPlatform(0, 11, -126, 5.5, 1, 5.5, 0x4ecdc4, true); // CP3
+        this._addPlatform(0, 11, -126, 6.0, 1, 6.0, 0x4ecdc4, true); // CP3
 
         // Section 4: 언덕
-        this._addPlatform(0, 11.5, -131, 2.75, 1, 2.75, 0x8b4513);
-        this._addPlatform(3, 12, -136, 2.75, 1, 2.75, 0x8b4513);
-        this._addPlatform(-2, 12.5, -141, 2.75, 1, 2.75, 0xa0522d);
-        this._addPlatform(1, 13, -146, 2.75, 1, 2.75, 0xa0522d);
+        this._addPlatform(0, 11.5, -131, 3.0, 1, 3.0, 0x8b4513);
+        this._addPlatform(3, 12, -136, 3.0, 1, 3.0, 0x8b4513);
+        this._addPlatform(-2, 12.5, -141, 3.0, 1, 3.0, 0xa0522d);
+        this._addPlatform(1, 13, -146, 3.0, 1, 3.0, 0xa0522d);
 
-        this._addPlatform(0, 13.5, -152, 2.75, 1, 2.75, 0x228b22);
-        this._addPlatform(0, 14, -158, 3.3, 1, 3.3, 0x228b22);
+        this._addPlatform(0, 13.5, -152, 3.0, 1, 3.0, 0x228b22);
+        this._addPlatform(0, 14, -158, 3.6, 1, 3.6, 0x228b22);
 
-        this._addPlatform(0, 14.5, -164, 5.5, 1, 5.5, 0x4ecdc4, true); // CP4
+        this._addPlatform(0, 14.5, -164, 6.0, 1, 6.0, 0x4ecdc4, true); // CP4
 
-        // Section 5: 보스 구간
-        this._addMovingPlatform(0, 15, -171, 2.9, 0.5, 2.9, 0x1abc9c, 'x', 3, 1.3);
-        this._addPlatform(0, 15.5, -177, 2.2, 1, 2.2, 0x27ae60);
+        // Section 5: 보스 구간 (속도 감소)
+        this._addMovingPlatform(0, 15, -171, 3.2, 0.5, 3.2, 0x1abc9c, 'x', 3, 1.1);
+        this._addPlatform(0, 15.5, -177, 2.5, 1, 2.5, 0x27ae60);
 
         // BOSS: 명태이모
         this._createBossNPC('myeongtae', 0, 16.7, -183);
 
-        this._addPlatform(3, 16, -182, 2.2, 1, 2.2, 0x2ecc71);
-        this._addPlatform(-3, 17, -187, 2.2, 1, 2.2, 0x2ecc71);
-        this._addPlatform(0, 18, -192, 2.2, 1, 2.2, 0x1abc9c);
-        this._addPlatform(0, 19, -198, 2.75, 1, 2.75, 0x27ae60);
-        this._addPlatform(0, 19.5, -204, 6.6, 1, 6.6, 0xffd700, false, true); // GOAL
+        this._addPlatform(3, 16, -182, 2.5, 1, 2.5, 0x2ecc71);
+        this._addPlatform(-3, 17, -187, 2.5, 1, 2.5, 0x2ecc71);
+        this._addPlatform(0, 18, -192, 2.5, 1, 2.5, 0x1abc9c);
+        this._addPlatform(0, 19, -198, 3.0, 1, 3.0, 0x27ae60);
+        this._addPlatform(0, 19.5, -204, 7.2, 1, 7.2, 0xffd700, false, true); // GOAL
 
         // Rescue target on goal platform
         this._createRescueNPC('jaewoo', 0, 21.2, -204);
@@ -649,75 +655,75 @@ class World {
     // ========== 대치동 (학원가, 어려운 난이도) ==========
     // Boss: 하하, Mobs: 큰이모+명태, Rescue: 이안+이서
     _buildDaechi() {
-        // Section 1
-        this._addPlatform(0, 0, 0, 5.5, 1, 5.5, 0x9b59b6);
-        this._addPlatform(0, 0.5, -7, 2.75, 1, 2.75, 0x8e44ad);
-        this._addPlatform(3, 1, -13, 2.2, 1, 2.2, 0x8e44ad);
-        this._addPlatform(-2, 2, -18, 2.2, 1, 2.2, 0x6c3483);
-        this._addPlatform(2, 3, -23, 1.65, 1, 1.65, 0x6c3483);
+        // Section 1 (플랫폼 ×1.1)
+        this._addPlatform(0, 0, 0, 6.0, 1, 6.0, 0x9b59b6);
+        this._addPlatform(0, 0.5, -7, 3.0, 1, 3.0, 0x8e44ad);
+        this._addPlatform(3, 1, -13, 2.5, 1, 2.5, 0x8e44ad);
+        this._addPlatform(-2, 2, -18, 2.5, 1, 2.5, 0x6c3483);
+        this._addPlatform(2, 3, -23, 2.0, 1, 2.0, 0x6c3483);
 
-        // Mob 1: 큰이모 (전후)
-        this._createMobNPC('keunimo', 0, 4.2, -13, 'vertical', 1.35, 3);
+        // Mob 1: 큰이모 (속도 감소)
+        this._createMobNPC('keunimo', 0, 4.2, -13, 'vertical', 1.1, 3);
 
-        this._addPlatform(0, 3.5, -28, 2.2, 1, 2.2, 0x9b59b6);
-        this._addPlatform(0, 4, -34, 5.5, 1, 5.5, 0x4ecdc4, true); // CP1
+        this._addPlatform(0, 3.5, -28, 2.5, 1, 2.5, 0x9b59b6);
+        this._addPlatform(0, 4, -34, 6.0, 1, 6.0, 0x4ecdc4, true); // CP1
 
-        // Section 2: 좁은 점프
-        this._addPlatform(3, 4.5, -40, 1.65, 1, 1.65, 0xf1c40f);
-        this._addPlatform(-3, 5.5, -45, 1.65, 1, 1.65, 0xf1c40f);
-        this._addPlatform(2, 6.5, -50, 1.65, 1, 1.65, 0xf39c12);
-        this._addPlatform(-2, 7.5, -55, 1.65, 1, 1.65, 0xf39c12);
+        // Section 2: 좁은 점프 (넓어짐)
+        this._addPlatform(3, 4.5, -40, 2.0, 1, 2.0, 0xf1c40f);
+        this._addPlatform(-3, 5.5, -45, 2.0, 1, 2.0, 0xf1c40f);
+        this._addPlatform(2, 6.5, -50, 2.0, 1, 2.0, 0xf39c12);
+        this._addPlatform(-2, 7.5, -55, 2.0, 1, 2.0, 0xf39c12);
 
-        // Mob 2: 명태 (좌우)
-        this._createMobNPC('myeongtae', 0, 8.7, -52, 'horizontal', 1.8, 3);
+        // Mob 2: 명태 (속도 감소)
+        this._createMobNPC('myeongtae', 0, 8.7, -52, 'horizontal', 1.5, 3);
 
-        this._addPlatform(0, 8, -60, 1.65, 1, 1.65, 0xe67e22);
-        this._addPlatform(3, 9, -64, 1.65, 1, 1.65, 0xe67e22);
-        this._addPlatform(0, 10, -68, 2.2, 1, 2.2, 0x9b59b6);
+        this._addPlatform(0, 8, -60, 2.0, 1, 2.0, 0xe67e22);
+        this._addPlatform(3, 9, -64, 2.0, 1, 2.0, 0xe67e22);
+        this._addPlatform(0, 10, -68, 2.5, 1, 2.5, 0x9b59b6);
 
-        this._addPlatform(0, 10.5, -74, 5.5, 1, 5.5, 0x4ecdc4, true); // CP2
+        this._addPlatform(0, 10.5, -74, 6.0, 1, 6.0, 0x4ecdc4, true); // CP2
 
-        // Section 3: 빠른 움직이는 발판
-        this._addMovingPlatform(0, 11, -81, 2.3, 0.5, 2.3, 0xf1c40f, 'x', 5, 2.1);
-        this._addPlatform(0, 11.5, -88, 1.65, 1, 1.65, 0x9b59b6);
-        this._addMovingPlatform(0, 12, -94, 2.3, 0.5, 2.3, 0xf1c40f, 'z', 4, 1.7);
+        // Section 3: 움직이는 발판 (속도 감소)
+        this._addMovingPlatform(0, 11, -81, 2.6, 0.5, 2.6, 0xf1c40f, 'x', 5, 1.7);
+        this._addPlatform(0, 11.5, -88, 2.0, 1, 2.0, 0x9b59b6);
+        this._addMovingPlatform(0, 12, -94, 2.6, 0.5, 2.6, 0xf1c40f, 'z', 4, 1.4);
 
-        this._addPlatform(3, 12.5, -100, 1.65, 1, 1.65, 0x8e44ad);
-        this._addMovingPlatform(-2, 13, -106, 2.3, 0.5, 2.3, 0xe67e22, 'y', 4, 1.3);
-        this._addMovingPlatform(2, 14, -112, 2.3, 0.5, 2.3, 0xe67e22, 'x', 4, 1.9);
+        this._addPlatform(3, 12.5, -100, 2.0, 1, 2.0, 0x8e44ad);
+        this._addMovingPlatform(-2, 13, -106, 2.6, 0.5, 2.6, 0xe67e22, 'y', 4, 1.1);
+        this._addMovingPlatform(2, 14, -112, 2.6, 0.5, 2.6, 0xe67e22, 'x', 4, 1.5);
 
-        this._addPlatform(0, 15, -118, 5.5, 1, 5.5, 0x4ecdc4, true); // CP3
+        this._addPlatform(0, 15, -118, 6.0, 1, 6.0, 0x4ecdc4, true); // CP3
 
-        // Section 4: 극한 점프
-        this._addPlatform(0, 15.5, -123, 1.45, 1, 1.45, 0x6c3483);   // was 1.2→1.45
-        this._addPlatform(3, 16.5, -127, 1.45, 1, 1.45, 0x6c3483);
-        this._addPlatform(-3, 17.5, -131, 1.45, 1, 1.45, 0x9b59b6);
+        // Section 4: 점프 (넓어짐)
+        this._addPlatform(0, 15.5, -123, 1.8, 1, 1.8, 0x6c3483);
+        this._addPlatform(3, 16.5, -127, 1.8, 1, 1.8, 0x6c3483);
+        this._addPlatform(-3, 17.5, -131, 1.8, 1, 1.8, 0x9b59b6);
 
-        this._addPlatform(0, 18, -135, 1.45, 1, 1.45, 0x9b59b6);
-        this._addPlatform(2, 19, -139, 1.45, 1, 1.45, 0x8e44ad);
-        this._addPlatform(-2, 20, -143, 1.45, 1, 1.45, 0x8e44ad);
-        this._addPlatform(0, 14, -148, 2.2, 1, 2.2, 0xf1c40f);
-        this._addPlatform(0, 17, -153, 2.2, 1, 2.2, 0xf1c40f);
-        this._addPlatform(3, 20, -157, 1.65, 1, 1.65, 0xf39c12);
+        this._addPlatform(0, 18, -135, 1.8, 1, 1.8, 0x9b59b6);
+        this._addPlatform(2, 19, -139, 1.8, 1, 1.8, 0x8e44ad);
+        this._addPlatform(-2, 20, -143, 1.8, 1, 1.8, 0x8e44ad);
+        this._addPlatform(0, 14, -148, 2.5, 1, 2.5, 0xf1c40f);
+        this._addPlatform(0, 17, -153, 2.5, 1, 2.5, 0xf1c40f);
+        this._addPlatform(3, 20, -157, 2.0, 1, 2.0, 0xf39c12);
 
-        this._addPlatform(0, 20.5, -163, 5.5, 1, 5.5, 0x4ecdc4, true); // CP4
+        this._addPlatform(0, 20.5, -163, 6.0, 1, 6.0, 0x4ecdc4, true); // CP4
 
-        // Section 5: 보스 구간
-        this._addMovingPlatform(0, 21, -170, 1.75, 0.5, 1.75, 0xe67e22, 'x', 4, 2.1);
-        this._addPlatform(0, 21.5, -176, 1.45, 1, 1.45, 0x6c3483);
+        // Section 5: 보스 구간 (속도 감소)
+        this._addMovingPlatform(0, 21, -170, 2.0, 0.5, 2.0, 0xe67e22, 'x', 4, 1.7);
+        this._addPlatform(0, 21.5, -176, 1.8, 1, 1.8, 0x6c3483);
 
         // BOSS: 하하
         this._createBossNPC('haha', 0, 22.7, -182);
 
-        this._addMovingPlatform(3, 22, -182, 1.75, 0.5, 1.75, 0xe67e22, 'z', 4, 1.7);
-        this._addPlatform(0, 22.5, -188, 1.45, 1, 1.45, 0x6c3483);
-        this._addPlatform(3, 23.5, -192, 1.65, 1, 1.65, 0x9b59b6);
-        this._addPlatform(-3, 24.5, -196, 1.65, 1, 1.65, 0x9b59b6);
-        this._addPlatform(3, 25.5, -200, 1.65, 1, 1.65, 0x8e44ad);
-        this._addPlatform(-3, 26.5, -204, 1.65, 1, 1.65, 0x8e44ad);
-        this._addPlatform(0, 27.5, -208, 1.65, 1, 1.65, 0x6c3483);
-        this._addPlatform(0, 28, -214, 2.2, 1, 2.2, 0xf1c40f);
-        this._addPlatform(0, 28.5, -220, 6.6, 1, 6.6, 0xffd700, false, true); // GOAL
+        this._addMovingPlatform(3, 22, -182, 2.0, 0.5, 2.0, 0xe67e22, 'z', 4, 1.4);
+        this._addPlatform(0, 22.5, -188, 1.8, 1, 1.8, 0x6c3483);
+        this._addPlatform(3, 23.5, -192, 2.0, 1, 2.0, 0x9b59b6);
+        this._addPlatform(-3, 24.5, -196, 2.0, 1, 2.0, 0x9b59b6);
+        this._addPlatform(3, 25.5, -200, 2.0, 1, 2.0, 0x8e44ad);
+        this._addPlatform(-3, 26.5, -204, 2.0, 1, 2.0, 0x8e44ad);
+        this._addPlatform(0, 27.5, -208, 2.0, 1, 2.0, 0x6c3483);
+        this._addPlatform(0, 28, -214, 2.5, 1, 2.5, 0xf1c40f);
+        this._addPlatform(0, 28.5, -220, 7.2, 1, 7.2, 0xffd700, false, true); // GOAL
 
         // Rescue targets on goal platform
         this._createRescueNPC('ian', -1.5, 30.2, -220);

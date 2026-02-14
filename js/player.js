@@ -62,8 +62,8 @@ class Player {
 
         // Physics
         this.velocity = new THREE.Vector3(0, 0, 0);
-        this.gravity = -25;
-        this.jumpForce = 10.5;
+        this.gravity = -24;
+        this.jumpForce = 11;
         this.moveSpeed = 7;
         this.isGrounded = false;
         this.canJump = true;
